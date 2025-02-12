@@ -43,7 +43,6 @@ Installing
             conda install -c conda-forge gdal
             pip install -r requirements.txt
             pip install -e .
-            pip install -r demo/requirements.txt
             pip install -r docs/requirements.txt 
 
 3. Anytime you want to use this package, this ``ResSR`` environment should be activated with the following:
