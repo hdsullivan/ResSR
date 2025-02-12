@@ -4,17 +4,18 @@
 # ######
 
 # Path to directory containing test images (each band should be saved as a .jp2 within a directory for the MSI))
-main_dir: "data/Sentinel-2/"
+main_dir:  Sentinel-2_demo_data/"
+save_dir_name: "Sentinel-2"
 
 # If True, create simulated data by downsampling all bands by a factor of L_synth. 
-# If False, use real data. (Only used for Sentinel-2 dataset, APEX dataset is always simulated.)
+# If False, use real data. (Must be False for APEX dataset.)
 simulated: False
 L_synth: 2
 
 # If True, crops image by corresponding range before doing reconstruction (must be divisible by 2 and 6)
 cropped_during_recon: True
-x_crop_range: [0, 1080]
-y_crop_range: [0, 1080]
+x_crop_range: [0, 180]
+y_crop_range: [0, 180]
 
 # ######
 # ResSR Parameters

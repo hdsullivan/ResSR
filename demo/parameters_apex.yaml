@@ -1,0 +1,38 @@
+---
+# ######
+# Input MSI Parameters
+# ######
+
+# Path to directory containing test images (each band should be saved as a .jp2 within a directory for the MSI))
+main_dir: "APEX_demo_data/"
+save_dir_name: "APEX"
+
+# If True, create simulated data by downsampling all bands by a factor of L_synth. 
+# If False, use real data. (Must be False for APEX dataset.)
+simulated: False
+L_synth: 2
+
+# If True, crops image by corresponding range before doing reconstruction (must be divisible by 2 and 6)
+cropped_during_recon: False
+x_crop_range: [0, 1080]
+y_crop_range: [0, 1080]
+
+# ######
+# ResSR Parameters
+# ######
+
+# Amount of noise in measured image
+sigma: 0.02
+# The impact of the high-resolution bands on the reconstruction (between 0 and 1)
+gamma_hr: 0.99
+# Weight of regularizing term
+lam: 0.5
+# Dimensionality of subspace
+K: 2
+
+# ######
+# ADMM Parameters
+# ######
+
+# ADMM weight (step size)
+rho: 1000
