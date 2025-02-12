@@ -4,3 +4,4 @@ opencv-python
 torchvision
 scikit-image
 astropy
+pillow

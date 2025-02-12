@@ -1,6 +1,0 @@
-# Include requirements for the demos
-tensorflow
-h5py
-hdf5storage
-keras
-tiler
