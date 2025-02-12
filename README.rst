@@ -8,12 +8,12 @@ ResSR is a computationally efficient MSI-SR method that achieves high-quality re
 ResSR applies singular value decomposition to identify correlations across spectral bands, uses pixel-wise computation to upsample the MSI, and then applies a residual correction process to correct the high-spatial frequency components of the upsampled bands.  
 While ResSR is formulated as the solution to a spatially-coupled optimization problem, we use pixel-wise regularization and derive an approximate closed-form solution, resulting in a pixel-wise algorithm with a dramatic reduction in computation that achieves state-of-the-art reconstructions. 
 
-[1] Duba-Sullivan, H., Reid, E. J., Voisin, S., Bouman, C. A., & Buzzard, G. T. (2024). ResSR: A Residual Approach to Super-Resolving Multispectral Images. arXiv preprint arXiv:2408.13225.
+[1] Duba-Sullivan, H., Reid, E. J., Voisin, S., Bouman, C. A., & Buzzard, G. T. (2024). ResSR: A Computationally Efficient Residual Approach to Super-Resolving Multispectral Images. arXiv preprint arXiv:2408.13225.
 
 
 Installing
 ----------
-1. *Clone or download the repository:*
+1. Clone or download the repository:
 
     .. code-block::
 
@@ -34,64 +34,69 @@ Installing
 
     b. Option 2: Manual install
 
-        1. *Create conda environment:*
+        Create a new conda environment named ``ResSR`` using the following commands:
 
-            Create a new conda environment named ``ResSR`` using the following commands:
+        .. code-block::
 
-            .. code-block::
+            conda create --name ResSR python=3.9.19
+            conda activate ResSR
+            conda install -c conda-forge gdal
+            pip install -r requirements.txt
+            pip install -e .
+            pip install -r demo/requirements.txt
+            pip install -r docs/requirements.txt 
 
-                conda create --name ResSR python=3.9.19
-                conda activate ResSR
-                conda install -c conda-forge gdal
-                pip install -r requirements.txt
-                pip install -e .
-                pip install -r demo/requirements.txt
-                pip install -r docs/requirements.txt 
+3. Anytime you want to use this package, this ``ResSR`` environment should be activated with the following:
 
-            Anytime you want to use this package, this ``ResSR`` environment should be activated with the following:
+    .. code-block::
 
-            .. code-block::
-
-                conda activate ResSR
-
-
-        2. *Install ResSR package:*
-
-            Navigate to the main directory ``ResSR/`` and run the following:
-
-            .. code-block::
-
-                pip install .
-
-            To allow editing of the package source while using the package, use
-
-            .. code-block::
-
-                pip install -e .
+        conda activate ResSR
 
 
 Running Demo(s)
 ---------------
-
-    To run the demo(s) provided for ResSR, you first need to download the necessary data.
-    
-    After downloading the data, navigate to the ``demo/`` directory and udpate the ``parameters.yaml`` file with the path to the data directory.
-    To run reconstruct all images with the data directory with ResSR, run the following command
+1. Demo without downloading any data
+    This demo will generate and super-resolve a random MSI, enabling repository testing without downloading any data.  
+    To run this demo,  navigate to the ``demo/`` directory and run the following command
 
         .. code-block::
 
-            python recon_with_ressr.py -opt parameters.yaml
-    
+            python random_data_recon.py
+
+2. Demos on APEX Simulated Sentinel-2 MSI
+    Before running this demo, you first need to download and uncompress APEX_demo_data.tgz from https://engineering.purdue.edu/~bouman/data_repository/. 
+    Once uncompressed, this directory is ~0.6 GB and consists of the APEX simulated dataset originally downloaded from https://github.com/lanha/SupReME.  
+
+    After downloading the data, navigate to the ``demo/`` directory and udpate the ``parameters_apex.yaml`` file with the path to the APEX_demo_data directory.
+    To reconstruct the APEX dataset with ResSR, run the following command
+
+        .. code-block::
+
+            python recon_with_ressr.py -opt parameters_apex.yaml
+
     The results will be saved in the ``demo/results/`` directory. 
 
     To reconstruct with the exact iterative formulation of ResSR as discussed in Section III.F of the paper, run the following command:
 
         .. code-block::
 
-            python recon_with_ressr_iterative.py -opt parameters.yaml
+            python recon_with_ressr_iterative.py -opt parameters_apex.yaml
 
-    If you would like to run a demo without downloading any data, you can run it on a random image by running the following command:
+3. Demos on APEX Simulated Sentinel-2 MSI
+    Before running this demo, you first need to download and uncompress Sentinel-2_demo_data.tgz from https://engineering.purdue.edu/~bouman/data_repository/. 
+    Once uncompressed, this directory is ~25 GB and consists of the real Sentinel-2 dataset curated for our experimental results (containing 19 real Sentinel-2 MSIs). 
+
+    After downloading the data, navigate to the ``demo/`` directory and udpate the ``parameters_sentinel2.yaml`` file with the path to the Sentinel-2_demo_data directory.
+    To reconstruct the Sentinel-2 dataset with ResSR, run the following command
 
         .. code-block::
 
-            python random_data_recon.py -opt parameters.yaml -random
+            python recon_with_ressr.py -opt parameters_sentinel2.yaml
+
+    The results will be saved in the ``demo/results/`` directory. 
+
+    To reconstruct with the exact iterative formulation of ResSR as discussed in Section III.F of the paper, run the following command:
+
+        .. code-block::
+
+            python recon_with_ressr_iterative.py -opt parameters_sentinel2.yaml
