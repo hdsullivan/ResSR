@@ -81,7 +81,7 @@ Running Demo(s)
 
             python recon_with_ressr_iterative.py -opt parameters_apex.yaml
 
-3. Demos on APEX Simulated Sentinel-2 MSI
+3. Demos on Sentinel-2 MSIs
     Before running this demo, you first need to download and uncompress Sentinel-2_demo_data.tgz from https://engineering.purdue.edu/~bouman/data_repository/. 
     Once uncompressed, this directory is ~25 GB and consists of the real Sentinel-2 dataset curated for our experimental results (containing 19 real Sentinel-2 MSIs). 
 
