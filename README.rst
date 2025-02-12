@@ -13,13 +13,13 @@ While ResSR is formulated as the solution to a spatially-coupled optimization pr
 
 Installing
 ----------
-1. Clone or download the repository:
+1. Clone or download the repository.
 
     .. code-block::
 
         git clone git@code.ornl.gov:sullivanhe/ressr.git
 
-2. Install the conda environment and package
+2. Install the conda environment and package. Note that GDAL is a required package and should be installed using conda forge (https://gdal.org/en/stable/download.html). 
 
     a. Option 1: Clean install from dev_scripts
 
