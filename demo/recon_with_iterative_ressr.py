@@ -4,7 +4,6 @@
 
 import numpy as np
 import os
-import sys
 import time
 import yaml
 import argparse
@@ -56,21 +55,14 @@ for img_name in os.listdir(params['main_dir']):
     else:
         cropped_str = "uncropped/"
 
-    if params['main_dir'] == "APEX":
-        results_dir = "../demo/results/" + params['main_dir'] + "/" + cropped_str + "/"
-
+    if params["simulated"] and params['L_synth'] == 2:
+        results_dir = "../demo/results/" + params['save_dir_name'] + "/" + cropped_str + params["img_name"] + "/simulated_L=2/"
+    elif params["simulated"] and params['L_synth'] == 6:
+        results_dir = "../demo/results/" + params['save_dir_name'] + "/" + cropped_str + params["img_name"] + "/simulated_L=6/"
     else:
-        if params["simulated"] and params['L_synth'] == 2:
-            results_dir = "../demo/results/" + params['main_dir'] + "/" + cropped_str + params["img_name"] + "/simulated_L=2/"
-        elif params["simulated"] and params['L_synth'] == 6:
-            results_dir = "../demo/results/" + params['main_dir'] + "/" + cropped_str + params["img_name"] + "/simulated_L=6/"
-        else:
-            results_dir = "../demo/results/" + params['main_dir'] + "/" + cropped_str + params["img_name"] + "/real/"
+        results_dir = "../demo/results/" + params['save_dir_name'] + "/" + cropped_str +  params["img_name"] + "/"
 
-    save_dir = (
-        results_dir
-        + "iterative_ResSR"
-    )
+    save_dir = results_dir
 
     os.makedirs(save_dir, exist_ok=True) 
 
@@ -116,6 +108,18 @@ for img_name in os.listdir(params['main_dir']):
         for i in range(y_60m.shape[2]):
             y_60m_lr[:, :, i] = decimation_utils.simulated_data_decimation(y_60m[:, :, i], params["L_synth"])
         y_10m = y_10m_lr
+        y_20m = y_20m_lr
+        y_60m = y_60m_lr
+
+    if "APEX" in params["main_dir"]:
+        y_20m_gt = y_20m
+        y_60m_gt = y_60m
+        y_20m_lr = np.zeros((y_20m.shape[0] // 2, y_20m.shape[1] // 2, y_20m.shape[2]))
+        y_60m_lr = np.zeros((y_60m.shape[0] // 6, y_60m.shape[1] // 6, y_60m.shape[2]))
+        for i in range(y_20m.shape[2]):
+            y_20m_lr[:, :, i] = decimation_utils.simulated_data_decimation(y_20m[:, :, i], 2)
+        for i in range(y_60m.shape[2]):
+            y_60m_lr[:, :, i] = decimation_utils.simulated_data_decimation(y_60m[:, :, i], 6)
         y_20m = y_20m_lr
         y_60m = y_60m_lr
 
