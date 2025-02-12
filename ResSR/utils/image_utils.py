@@ -11,7 +11,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import cv2
-from osgeo import gdal
+try:
+    from osgeo import gdal
+except:
+    print("GDAL must be installed using `conda install -c conda-forge gdal'. Reference ReadMe for correct conda environment set-up instructions.")
+    quit()
 
 EPS = np.finfo(float).eps
 
